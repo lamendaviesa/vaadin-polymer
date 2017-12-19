@@ -1,0 +1,11 @@
+*.class
+/bin
+/build
+/gradle
+/.idea
+/.gradle
+/.settings
+.classpath
+.project
+
+
