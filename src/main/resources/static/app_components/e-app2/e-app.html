@@ -1,0 +1,95 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/places-icons.html">
+
+<link rel="import" href="../a-figure/a-figure.html">
+<link rel="import" href="../a-draw/a-draw.html">
+<link rel="import" href="../e-style/e-style-app.html" />
+
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html" />
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html" />
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html" />
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html" />
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html" />
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<dom-module id="e-app">
+	<template>
+	<style is="custom-style" include="e-style-app"></style>
+		<app-location route="{{route}}"></app-location>
+		<app-route
+	        route="{{route}}"
+	        pattern="/:view"
+	        data="{{routeData}}">
+    	</app-route>
+
+		<!-- Header -->
+		<app-header responsive-width="1280px" fullbleed condenses effects="waterfall">
+			<app-toolbar>
+				<paper-icon-button icon="menu" on-click="opendrawer"></paper-icon-button>
+				<div main-title class="logo2">ART Graphic</div>
+				<paper-icon-button icon="shopping-cart"></paper-icon-button>
+			</app-toolbar>
+			<paper-tabs selected="{{routeData.view}}" attr-for-selected="view" sticky>
+		      <paper-tab view="figure">Figure</paper-tab>
+		      <paper-tab view="draw">Draw</paper-tab>
+		      <paper-tab view="lazydraw">Lazy Draw</paper-tab>
+		      <paper-tab view="lazyperson">Lazy Person</paper-tab>
+    		</paper-tabs>
+		</app-header>
+		<!-- Navigation menu-->
+		<app-drawer id="drawer" opened="{{ishidden}}">
+			<div class="logo"></div>
+			<paper-listbox selected="{{routeData.view}}" attr-for-selected="view">
+				<paper-item view="figure"><iron-icon icon="av:library-books"></iron-icon>Figure</paper-item>
+				<paper-item view="draw"><iron-icon icon="places:business-center"></iron-icon>Draw</paper-item>
+				<paper-item view="lazydraw">Lazy Draw</paper-item>
+				<paper-item view="lazyperson">Lazy Person</paper-item>
+			</paper-listbox>
+		</app-drawer>
+		<!-- Content -->
+		<div hidden$="{{ishidden}}">
+			<iron-pages id="pages" selected="[[routeData.view]]" attr-for-selected="view">
+				<a-figure view="figure"></a-figure>
+				<a-draw  view="draw" icon="places:business-center"></a-draw>
+				<iframe  view="lazydraw" src="http://localhost:8080/lazydraw" style="position: absolute; width: 100%; height: 900px"></iframe>
+				<iframe  view="lazyperson" src="http://localhost:8080/lazyperson" style="position: absolute; width: 100%; height: 900px"></iframe>
+			</iron-pages>
+		</div>
+	</template>
+	<script>
+	class EApp extends Polymer.Element {
+		constructor() {
+			super();
+			this.addEventListener('iron-select', e => this._closedrawer(e));
+		}
+		static get is() {
+			return 'e-app';
+		}
+		static get properties() {
+			return { 
+				ishidden: {
+               		type: Boolean,
+                	value: false
+            	}
+			}
+		}
+		opendrawer() {
+			this.$.drawer.open();
+		}
+		_closedrawer() {
+			this.$.drawer.close();
+		}
+		
+	}
+	customElements.define(EApp.is, EApp);
+	</script>
+</dom-module>

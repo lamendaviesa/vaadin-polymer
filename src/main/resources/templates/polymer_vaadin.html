@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		var server = {
+				contextPath: /*[[@{/}]]*/ '/'
+		};
+		if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
+	    	// We're using a browser with native WC support!
+	  	} else {
+	    	document.write('<script src="' + server.contextPath + 'bower_components/webcomponentsjs/webcomponents-loader.js'><\/script>');
+	  	};
+	/*]]>*/
+	</script>
+	<title>Polymer2</title>
+	<meta name="context-path" th:content="@{/}"/>
+	<title>Polymer2</title>
+    <link rel="import" th:href="@{/bower_components/polymer/polymer.html}" />
+    <link rel="import" th:href="@{/bower_components/paper-input/paper-input.html}" />
+</head>
+<body>
+ 	<h1>Hello Polymer with an component built from Vaadin FrameWork</h1> 
+ 	<paper-input label="I'm polymer element"></paper-input>
+ 	<h3>An iframe inside of domain server, <i style="color: #4d94ff">E.g. http://localhost:8080/grid</i></h3>
+ 	<iframe src="http://localhost:8080/grid" style="position: absolute; width: 100%; height: 100%"></iframe> 
+</body>
+</html>  

@@ -1,0 +1,19 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html" >
+
+<dom-module id="ev-table">
+	<template>
+		<div>
+			Hi! I'm Ev Table
+			<slot></slot>
+		</div>
+	</template>
+	<script>
+	class EvTable extends Polymer.Element {
+		static get is() {
+			return 'ev-table';
+		}
+	}
+	customElements.define(EvTable.is, EvTable);
+	</script>
+</dom-module>
+

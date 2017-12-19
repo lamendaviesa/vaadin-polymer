@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+<dom-module id="e-app">
+	<template>
+		<app-location route="{{route}}"></app-location>
+		<app-route
+	        route="{{route}}"
+	        pattern="/:view"
+	        data="{{routeData}}">
+    	</app-route>
+		
+		<paper-listbox selected="{{routeData.view}}" attr-for-selected="view">
+			<paper-item view="input">input</paper-item>
+			<paper-item view="grid">grid</paper-item>
+			<paper-item>
+				<!-- Lack load -->
+				<a href="/grid">grid 2 way</a> 
+			</paper-item>
+		</paper-listbox>
+		
+		<template is="dom-if" if="[[_equals(routeData.view, 'input')]]">				
+		    <paper-input view="input" name="name"></paper-input>
+		</template>	
+		
+		<template is="dom-if" if="[[_equals(routeData.view, 'grid')]]">					
+			<iframe src="http://localhost:8080/grid" style="position: absolute; width: 100%; height: 100%"></iframe>
+		</template>
+	</template>
+	<script>
+	class EApp extends Polymer.Element {
+		static get is() {
+			return 'e-app';
+		}
+		_equals(a, b) {
+			return a == b;
+		}  
+		/* ES6 Polymer 2.0 no sporta? */
+		//var _equals = (a, b) => a == b;
+	}
+	customElements.define(EApp.is, EApp);
+	</script>
+</dom-module>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		var server = {
+				contextPath: /*[[@{/}]]*/ '/'
+		};
+		if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
+	    	// We're using a browser with native WC support!
+	  	} else {
+	    	document.write('<script src="' + server.contextPath + 'bower_components/webcomponentsjs/webcomponents-loader.js'><\/script>');
+	  	};
+	/*]]>*/
+	</script>
+	<title>Polymer2</title>
+	<meta name="context-path" th:content="@{/}"/>
+	<title>Polymer2</title>
+    <link rel="import" th:href="@{/bower_components/polymer/polymer.html}" />
+    <link rel="import" th:href="@{/bower_components/paper-input/paper-input.html}" />
+    <base target="_parent"></base> <!-- Force link from iframe to be opened in the parent window -->
+</head>
+<body>
+ 	<h1>Hello Polymer with an Iframe</h1> 
+ 	<paper-input label="I'm polymer element"></paper-input>
+ 	<h3>An iframe inside of domain server, <i style="color: #4d94ff">E.g. http://localhost:8080/vpolymer_components/ev-table/demo.html</i></h3>
+ 	<iframe src="http://localhost:8080/vpolymer_components/ev-table/demo.html"></iframe>
+ 	<h3>The servers disallow loading of the resource in an iframe outside of their domain, <i style="color: #4d94ff">E.g. http://www.w3schools.com/</i></h3>
+ 	<iframe src="http://www.w3schools.com/"></iframe>
+</body>
+</html>  

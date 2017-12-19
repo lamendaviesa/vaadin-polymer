@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		var server = {
+				contextPath: /*[[@{/}]]*/ '/'
+		};
+		if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
+	    	// We're using a browser with native WC support!
+	  	} else {
+	    	document.write('<script src="' + server.contextPath + 'bower_components/webcomponentsjs/webcomponents-loader.js'><\/script>');
+	  	};
+	/*]]>*/
+	</script>
+	<title>Polymer2</title>
+	<meta name="context-path" th:content="@{/}"/>
+	<title>Polymer2</title>
+    <link rel="import" th:href="@{/bower_components/polymer/polymer.html}" />
+    <link rel="import" th:href="@{/bower_components/paper-input/paper-input.html}" />
+</head>
+<body>
+ 	<h1>Hello Polymer</h1> 
+ 	<paper-input label="I'm polymer element"></paper-input>
+</body>
+</html>  

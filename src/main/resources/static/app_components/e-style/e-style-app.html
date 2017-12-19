@@ -1,0 +1,94 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="e-style-app">
+    <template>
+        <style>
+			/* Main */
+			:root{
+				--e-theme-primary-color: #666699;
+				--e-theme-secondary-color: #f0f0f5;
+				--e-theme-text-color-title: white;
+				--e-theme-paper-tab-selected: white;
+				--e-theme-paper-tab-hover: #8585ad;
+				--e-theme-paper-item-hover: rgb(230,230,230);
+	    	}
+			
+			:host { 
+				font-family: sans-serif;
+			}
+		
+			paper-item:hover {
+ 				background-color: var(--e-theme-paper-item-hover);
+ 			}
+ 			
+ 			paper-item {
+ 				--paper-item-selected: {
+					background-color: var(--e-theme-primary-color); 
+					color: var(--e-theme-text-color-title);
+				}
+ 			}
+			
+			vaadin-grid {
+        		--vaadin-grid-body-row-odd-cell: {
+					background-color: red;
+				}
+        	}
+			/* Web header */
+			app-drawer {
+				border: 1px solid DarkGray; 
+			}
+
+			paper-listbox {
+				margin-top: 80px;
+			}
+			
+			app-header app-toolbar, paper-tab {
+				background-color: var(--e-theme-primary-color);
+		        color: var(--e-theme-secondary-color);
+			}
+			
+			paper-tab.iron-selected {
+      			color: var(--e-theme-paper-tab-selected);
+      			font-size: 150%;
+    		}
+    		
+    		paper-tab:hover {
+    			background-color: var(--e-theme-paper-tab-hover);
+    			color: var(--e-theme-text-color-title);
+    		}
+    		
+		    img {
+		    	border-radius: 50%;
+		    	height: 30px;
+		    	width: 42px;
+			}
+			
+	        /* Photo */
+	       .logo2 {
+				color: white;
+				font-size: 250%;
+				text-align: center;
+				font-weight: bold;
+			}
+			
+			.logo {
+				display: block;
+				background-image: url('../../images/logo.png');
+				width: 50%;
+				height: 80px;
+				margin: 20px auto 10px;
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+        </style>
+    </template>
+    <script>
+    class EStyleApp extends Polymer.Element {
+		static get is() {
+			return 'e-style-app';
+		}
+	}
+	customElements.define(EStyleApp.is, EStyleApp);
+    </script>
+</dom-module>
