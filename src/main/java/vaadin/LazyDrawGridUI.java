@@ -24,7 +24,7 @@ import vaadin.service.MockDrawService;
 import vaadin.utils.LazyDataModel;
 import vaadin.vo.Draws;
 
-@SpringUI(path = "/lazydraw")
+@SpringUI(path = "/lazydraw-ui")
 public class LazyDrawGridUI extends UI {
 
 	private static final long serialVersionUID = -8027522037330142385L;

@@ -1,8 +1,6 @@
 package vaadin;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.vaadin.data.HasValue;
 import com.vaadin.data.provider.DataProvider;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -12,12 +10,10 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.components.grid.HeaderCell;
-
 import vaadin.service.MockPersonService;
-import vaadin.utils.LazyDataModel;
 import vaadin.vo.Person;
 
-@SpringUI(path = "/lazyperson")
+@SpringUI(path = "/lazyperson-ui")
 public class LazyPersonGridUI extends UI {
 	
 	private static final long serialVersionUID = 6635437980453626866L;
@@ -25,32 +21,59 @@ public class LazyPersonGridUI extends UI {
 	private final MockPersonService service = new MockPersonService();
 	private TextField filterName = new TextField("name");
 	private TextField filterAge = new TextField("age");
-	
+
+	public static class PersonFilter {
+		public final String name;
+		public final Integer age;
+
+		public PersonFilter(String name, Integer age) {
+			this.name = name;
+			this.age = age;
+		}
+	}
+
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		Grid<Person> grid = new Grid<>(Person.class);
 		grid.setSizeFull();
 		grid.setHeightByRows(15);
 
+		DataProvider<Person, PersonFilter> dataProvider = DataProvider.fromFilteringCallbacks(
+				query -> service.find(
+                        query.getOffset(),
+                        query.getLimit(),
+						filterName.getValue().trim().isEmpty() ? null : filterName.getValue().trim(),
+						filterAge.getValue().trim().isEmpty() ? null : Integer.valueOf(filterAge.getValue().trim())
+                ).stream(),
+				query -> service.count(
+						filterName.getValue().trim().isEmpty() ? null : filterName.getValue().trim(),
+						filterAge.getValue().trim().isEmpty() ? null : Integer.valueOf(filterAge.getValue().trim())
+                )
+		);
+
 		/** Bug Lazy Data */
-		grid.setDataProvider(DataProvider.ofCollection(service.findAll(0, 40)));
+		grid.setDataProvider(dataProvider);
 		
 		/** Only Pagination */
-		grid.setDataProvider(LazyDataModel.fromService(service));
+		//grid.setDataProvider(LazyDataModel.fromService(service));
 		/** Pagination and Sorting */
-		grid.setDataProvider(LazyDataModel.withSorting(service));
+		//grid.setDataProvider(LazyDataModel.withSorting(service));
 
 		/** Pagination and Filtering */
 		//Name
-		HeaderCell name = grid.getHeaderRow(0).getCell("name");
+		HeaderCell nameCell = grid.getHeaderRow(0).getCell("name");
 		filterName.setWidth("80%"); //style
 		filterName.setPlaceholder("Name");
-		name.setComponent(filterName);
-		
-		filterName.addValueChangeListener(event -> {
-			Notification.show(filterName.getCaption() + " = " + filterName.getValue());
-			grid.setDataProvider(LazyDataModel.withFilter(service, filterName));
-		});
+		nameCell.setComponent(filterName);
+
+
+		HasValue.ValueChangeListener<String> filterValueChangeListener = event -> {
+			Notification.show(filterName.getCaption() + " = " + filterName.getValue() + ". "
+					+ filterAge.getCaption() + " = " + filterAge.getValue());
+			dataProvider.refreshAll();
+		};
+
+		filterName.addValueChangeListener(filterValueChangeListener);
 		
 		//TODO
 		// Add more filter
@@ -60,10 +83,7 @@ public class LazyPersonGridUI extends UI {
 		filterAge.setPlaceholder("Age");
 		age.setComponent(filterAge);
 		
-		filterAge.addValueChangeListener(event -> {
-			Notification.show(filterAge.getCaption() + " = " + filterAge.getValue());
-			grid.setDataProvider(LazyDataModel.withFilter(service, filterAge));
-		});
+		filterAge.addValueChangeListener(filterValueChangeListener);
 		
 		//Event Listeners
 //		List<TextField> collectionFilters = Arrays.asList(filterName, filterAge);

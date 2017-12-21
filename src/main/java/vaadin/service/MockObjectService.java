@@ -64,7 +64,7 @@ abstract class MockObjectService<T extends GridElement> implements ObjectService
 
 	@Override
 	public List<T> findAll(int offset, int limit) {
-		if (rows.size() > limit) return rows.subList(offset, limit);
+		if (rows.size() > limit) return rows.subList(offset, offset + limit - 1);
 		return rows; 
 	}
 
