@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/vaadin-grid/vaadin-grid.html" />
+<link rel="import" href="../../bower_components/vaadin-grid/vaadin-grid-column-group.html" />
+<script type="text/javascript" src="../../data/generic-data.js" ></script>
+
+<dom-module id="a-grid-generic">
+	<template>
+		<vaadin-grid items="[[data.rows]]" as="row">
+			holla
+			<template is="dom-repeat" items="[[data.headers]]" as="header">
+				<template is="dom-if" if="[[!header.group]]">
+					<vaadin-grid-column>
+						<template class="header">[[header.title]]</template>
+						<template>[[_getValue(header.title, row)]]</template>
+					</vaadin-grid-column>
+				</template>
+				<template is="dom-if" if="[[header.group]]">
+					<vaadin-grid-column-group>
+						<template class="header">[[header.title]]</template>
+						<template is="dom-repeat" items="[[header.subheaders]]" as="subheader">
+							<vaadin-grid-column>
+						   		<template class="header">[[subheader.title]]</template>
+						   		<template>[[_getValue(subheader.title, row)]]</template>
+							</vaadin-grid-column>
+						</template>
+					</vaadin-grid-column-group>
+				</template>
+			</template>
+		</vaadin-grid>	
+	</template>
+	<script>
+	class AGridGeneric extends Polymer.Element {
+		static get is() {
+			return 'a-grid-generic';
+		}
+		static get properties() {
+			return {
+				data: {
+					type: Array,
+					value: data
+				}
+			}
+		}
+		_getValue(colum, row) {
+			console.log("colum[row]", colum, row);
+			if(row && row[colum]) {
+				return row[colum];
+			} else return "-";
+		}
+	}
+	customElements.define(AGridGeneric.is, AGridGeneric);
+	</script>
+</dom-module>

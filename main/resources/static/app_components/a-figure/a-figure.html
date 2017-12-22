@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html" />
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html" />
+
+<link rel="import" href="../../bower_components/vaadin-grid/vaadin-grid.html" />
+<script type="text/javascript" src="../../data/figures.js" ></script>
+
+<dom-module id="a-figure">
+	<template>
+		<h1>The table has been created with vaadin-grid element</h1>
+		<vaadin-grid items="[[figures]]" style="height: 85vh; border-style: none;">
+			<vaadin-grid-column>
+				<template class="header">Image</template>
+				<template><img src="../../images/[[item.image]]"></template>
+			</vaadin-grid-column>
+			<vaadin-grid-column>
+				<template class="header">Figure</template>
+				<template>[[item.figure]]</template>
+			</vaadin-grid-column>
+			<vaadin-grid-column>
+				<template class="header">
+					<div>Dimension <iron-icon icon="image:blur-on"></iron-icon></div>
+				</template>
+				<template>[[item.dimension]]</template>
+			</vaadin-grid-column>
+      	</vaadin-grid>
+	</template>
+	<script>
+	class AFigure extends Polymer.Element {
+		static get is() {
+			return 'a-figure';
+		}
+		static get properties() {
+			return {
+				figures: {
+					type: Array,
+					value: figures
+				}
+			}
+		}
+	}
+	customElements.define(AFigure.is, AFigure);
+	</script>
+</dom-module>
+
+

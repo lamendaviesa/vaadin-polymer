@@ -1,0 +1,18 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="a-draw">
+	<template>
+		<h1>The table has been created with vaadin.com.ui.Grid class</h1>
+		<iframe src="http://localhost:8080/draw" style="position: absolute; width: 100%; height: 900px"></iframe>
+	</template>
+	<script>
+	class ADraw extends Polymer.Element {
+		static get is() {
+			return 'a-draw';
+		}
+	}
+	customElements.define(ADraw.is, ADraw);
+	</script>
+</dom-module>
+
+

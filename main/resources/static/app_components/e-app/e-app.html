@@ -1,0 +1,69 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/places-icons.html">
+
+<link rel="import" href="../a-figure/a-figure.html">
+<link rel="import" href="../a-draw/a-draw.html">
+<link rel="import" href="../e-style/e-style-app.html" />
+
+<dom-module id="e-app">
+	<template>
+	<style is="custom-style" include="e-style-app"></style>
+		<app-location route="{{route}}"></app-location>
+		<app-route
+	        route="{{route}}"
+	        pattern="/:view"
+	        data="{{routeData}}">
+    	</app-route>
+
+		<app-drawer-layout responsive-width="1280px" fullbleed> 
+			<app-drawer slot="drawer" id="drawer" swipe-open>
+				<!-- Menu navigation -->
+		        <div class="photo"></div>
+		    	<paper-listbox selected="{{routeData.view}}" attr-for-selected="view">
+					<paper-item view="figure"><iron-icon icon="av:library-books"></iron-icon>Figure</paper-item>
+					<paper-item view="draw"><iron-icon icon="places:business-center"></iron-icon>Draw</paper-item>
+				</paper-listbox>
+			</app-drawer>
+			
+			<app-header-layout>
+				<!-- Main header -->
+				<app-header slot="header" fixed condenses effects="waterfall">
+					<app-toolbar>
+						<div>[[upperCase(routeData.view)]]</div>
+					</app-toolbar>
+				</app-header>
+				<!-- Container -->
+				<iron-pages selected="[[routeData.view]]" attr-for-selected="view">
+					<a-figure view="figure"></a-figure>
+					<draw view="draw" icon="places:business-center"></draw>
+				</iron-pages>
+			</app-header-layout>
+		</app-drawer-layout>
+	</template>
+	<script>
+	class EApp extends Polymer.Element {
+		static get is() {
+			return 'e-app';
+		}
+		upperCase(word) {
+			return word.toUpperCase();
+		}
+	}
+	customElements.define(EApp.is, EApp);
+	</script>
+</dom-module>
