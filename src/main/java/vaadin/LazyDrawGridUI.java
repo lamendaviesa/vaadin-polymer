@@ -2,6 +2,7 @@ package vaadin;
 
 import java.io.File;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.data.provider.DataProvider;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
@@ -25,6 +26,7 @@ import vaadin.utils.LazyDataModel;
 import vaadin.vo.Draws;
 
 @SpringUI(path = "/lazydraw-ui")
+@Theme("gridtheme")
 public class LazyDrawGridUI extends UI {
 
 	private static final long serialVersionUID = -8027522037330142385L;
@@ -55,6 +57,7 @@ public class LazyDrawGridUI extends UI {
 	}
 
 	private void style(Grid<Draws> grid) {
+		
 		grid.setSizeFull(); 
 		grid.setHeightByRows(15);
 		/** 
@@ -118,7 +121,8 @@ public class LazyDrawGridUI extends UI {
 		* Column Groups
 		*/
 		HeaderRow groupingHeader = grid.prependHeaderRow();
-		groupingHeader.join(groupingHeader.getCell("type"), 
+		groupingHeader.join(groupingHeader.getCell("image"),
+							groupingHeader.getCell("type"), 
 							groupingHeader.getCell("price"))
 					 	.setText("Characteristic");
 		groupingHeader.join(groupingHeader.getCell("value3"),
@@ -155,6 +159,29 @@ public class LazyDrawGridUI extends UI {
 				footer.getCell("price"),
 				footer.getCell("type"))
 			  .setText("Total dresses " + service.count());
+		
+		
+		/** Generating Row Styles, see gridtheme.scss */
+		grid.getColumn("value4").setStyleGenerator(draw -> "blue");
+		
+		grid.getColumn("price").setStyleGenerator(draw -> "border");
+		grid.getColumn("resource").setStyleGenerator(draw -> "border");
+		grid.getColumn("details").setStyleGenerator(draw -> "border");
+		grid.getColumn("icon").setStyleGenerator(draw -> "border");
+		grid.getColumn("value5").setStyleGenerator(draw -> "border");
+		grid.getColumn("value8").setStyleGenerator(draw -> "border");
+		grid.getColumn("value11").setStyleGenerator(draw -> "border");
+		grid.getColumn("value14").setStyleGenerator(draw -> "border");
+		grid.getColumn("value17").setStyleGenerator(draw -> "border");
+		grid.getColumn("value20").setStyleGenerator(draw -> "border");
+		
+		grid.setStyleGenerator(draw -> {
+			if (draw.getValue4().equals("Green")) {
+				return "green";
+			}
+			return null;
+		});
+		
 	}
 
 }

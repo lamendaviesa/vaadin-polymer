@@ -1,0 +1,7 @@
+@import "gridtheme.scss";
+@import "addons.scss";
+
+.gridtheme {
+  @include addons;
+  @include gridtheme;
+}
