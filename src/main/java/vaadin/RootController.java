@@ -44,7 +44,7 @@ public class RootController {
 
 	/**
 	 *  A basic way to prove that Spring show a template html with Polymer and an iframe. An iframe is includes with Vaadin. 
-	 * @return app_polymer.html
+	 * @return polymer_iframe.html
 	 */
 	@RequestMapping("/polymerIframe")
 	public ModelAndView polymerIframe() {
@@ -54,12 +54,22 @@ public class RootController {
 	
 	/**
 	 *  Integrate Polymer with a Vaadin component. The component Vaadin is built from Vaadin FrameFork.   
-	 * @return app_polymer.html
+	 * @return polymer_vaadin.html
 	 */
 	@RequestMapping("/polymerVaadin")
 	public ModelAndView polymerVaadin() {
 		Map<String, Object> model = new HashMap<>();
 		return new ModelAndView("polymer_vaadin", model);
+	}
+	
+	/**
+	 *  A template that introduces a responsive web.
+	 * @return responsive_web.html
+	 */
+	@RequestMapping("/responsiveWeb")
+	public ModelAndView responsiveWeb() {
+		Map<String, Object> model = new HashMap<>();
+		return new ModelAndView("responsive_web", model);
 	}
 	
 	/**

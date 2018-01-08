@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		var server = {
+				contextPath: /*[[@{/}]]*/ '/'
+		};
+		if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
+	    	// We're using a browser with native WC support!
+	  	} else {
+	    	document.write('<script src="' + server.contextPath + 'bower_components/webcomponentsjs/webcomponents-loader.js"><\/script>');
+	  	};
+	/*]]>*/
+	</script>
+	<meta name="context-path" th:content="@{/}"/>
+	<title>Responsive Web</title>
+    <link rel="import" th:href="@{/bower_components/polymer/polymer.html}" />
+    <link rel="import" th:href="@{/bower_components/paper-input/paper-input.html}" />
+    <link rel="import" th:href="@{/bower_components/paper-expansion-panel/paper-expansion-panel.html}" />
+    <link rel="import" th:href="@{/app_components/a-figure/a-figure-grid.html}" />
+        <link rel="import" th:href="@{/app_components/a-figure/a-figure-expansion-panel.html}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
+    
+    <!-- Css Responsive-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    
+    <!-- Latest compiled and minified CSS | jQuery library | Latest compiled JavaScript -->
+	<link rel="stylesheet" th:href="@{http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" />
+</head>
+<body>
+	<script th:src="@{http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+	<script th:src="@{http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+	<h1>Responsive Web</h1> 
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h3>Column 1</h3>
+				<p>Lorem ipsum dolor..</p>
+				<p>Ut enim ad..</p>
+			</div>
+			<div class="col-sm-4">
+				<h3>Column 2</h3>
+				<p>Lorem ipsum dolor..</p> 
+				<p>Ut enim ad..</p>
+			</div>
+			<div class="col-sm-4">
+				<h3>Column 3</h3> 
+				<p>Lorem ipsum dolor..</p>
+				<p>Ut enim ad..</p>
+			</div>
+		</div>
+		<div class="row col-sm-12">
+	 		<paper-input label="I'm polymer element"></paper-input>
+	 	</div>
+	 	<div class="row">
+	 		<div class="hidden-xs col-sm-12">
+		 		<a-figure-grid></a-figure-grid>
+		 	</div>
+		 	<div class="visible-xs col-xs-12">
+		      	<a-figure-expansion-panel></a-figure-expansion-panel>
+		      	<a href="#" class="btn btn-info" role="button">Link Button</a>
+	      	</div>
+      	</div>
+	</div>
+</body>
+</html>  

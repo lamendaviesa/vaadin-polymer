@@ -1,0 +1,33 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-expansion-panel/paper-expansion-panel.html" />
+<script type="text/javascript" src="../../data/figures.js" ></script>
+
+<dom-module id="a-figure-expansion-panel">
+	<template>
+		<h2>It has been created with paper-expansion-panel</h2>
+	    <template is="dom-repeat" items="{{figures}}" >
+	      	<paper-expansion-panel header="[[item.figure]]" summary="[[item.description]]">
+	      		<img src="../../images/[[item.image]]">Dimension: [[item.dimension]]
+	      	</paper-expansion-panel>
+	    </template>
+	</template>
+	<script>
+	class AFigureExpansionPanel extends Polymer.Element {
+		static get is() {
+			return 'a-figure-expansion-panel';
+		}
+		static get properties() {
+			return {
+				figures: {
+					type: Array,
+					value: figures
+				}
+			}
+		}
+	}
+	customElements.define(AFigureExpansionPanel.is, AFigureExpansionPanel);
+	</script>
+</dom-module>
+
+
